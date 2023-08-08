@@ -1,5 +1,5 @@
 FROM php:7.4-apache
-LABEL authors="mauro"
+LABEL authors="Mauro Chojrin <mauro.chojrin@leewayweb.com>"
 
 RUN apt-get update && \
     apt-get install -y \
