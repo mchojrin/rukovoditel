@@ -9,9 +9,14 @@ services:
       - MYSQL_PASSWORD=ruko
     restart: always
   webserver:
-    image: 'ruko_prod'
+    image: 'ruko_dev'
     build:
       context: '.'
-      target: prod
+      target: dev
     ports:
-      - '80:80'
+      - '8888:80'
+    volumes:
+      - './app/:/var/www/html/:rw'
+      - './xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
+    extra_hosts:
+      - host.docker.internal:host-gateway

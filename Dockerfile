@@ -6,12 +6,16 @@ RUN apt-get update && \
         libpng-dev \
         libzip-dev
 
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install gd && \
+    docker-php-ext-install zip && \
+    docker-php-ext-install mysqli
 
-RUN docker-php-ext-install zip
+COPY ./app /var/www/html
 
-RUN docker-php-ext-install mysqli
+RUN chown -R www-data.www-data /var/www/html/
 
-ADD app /var/www/html
+FROM prod as dev
 
-RUN chown -R www-data.www-data /var/www/html
+RUN pecl install xdebug-3.1.6 && \
+    docker-php-ext-enable xdebug
+
