@@ -14,7 +14,7 @@ services:
       context: '.'
       target: prod
       args:
-        USER_ID: ${USER}
-        GROUP_ID: ${GROUP}
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     ports:
       - '80:80'
