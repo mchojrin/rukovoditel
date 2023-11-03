@@ -1,0 +1,7 @@
+app/config/database*.php
+app/uploads/attachments/*
+app/uploads/users/*
+app/uploads/images/*
+app/backups/*
+app/log/*
+app/cache/*

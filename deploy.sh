@@ -49,8 +49,7 @@ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE 
 	docker load -i $TAR_FILE; \
 	echo 'Bringing services up'; \
 	docker-compose up -d; \
-	docker-compose exec webserver rm config/database.php; \
-	" 
+	"
 
 echo "Everything ready. Open up a browser at http://$IP to finish installation"
 echo "When done, delete the droplet using the command:"
