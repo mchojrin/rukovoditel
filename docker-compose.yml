@@ -18,3 +18,4 @@ services:
         GROUP_ID: ${GROUP_ID}
     ports:
       - '80:80'
+    restart: always
