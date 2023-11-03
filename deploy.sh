@@ -6,8 +6,6 @@ TARGET_IMAGE=ruko_prod
 TAR_FILE="$TARGET_IMAGE.tar"
 ID_FILE="~/.ssh/id_rsa_leeway"
 SSH_FINGERPRINT="91:1e:be:f0:03:24:86:1d:d1:f7:00:ce:f4:37:35:16"
-ENV_FILE=".env.dist"
-SETUP_SCRIPT="setup.sh"
 
 echo "Building production image"
 docker build . -t $TARGET_IMAGE --target=prod
@@ -51,6 +49,7 @@ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE 
 	docker load -i $TAR_FILE; \
 	echo 'Bringing services up'; \
 	docker-compose up -d; \
+	docker-compose exec webserver rm config/database.php; \
 	" 
 
 echo "Everything ready. Open up a browser at http://$IP to finish installation"
