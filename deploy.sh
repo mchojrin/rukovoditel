@@ -30,22 +30,22 @@ doctl compute droplet create \
 echo "Droplet up"
 doctl compute droplet get $DROPLET --template="{{.PublicIPv4}} {{.ID}}" > /tmp/droplet.txt
 
-IP=`cat /tmp/droplet.txt | awk ' {print $1} '`
-dropletId=`cat /tmp/droplet.txt | awk ' {print $2} '`
+IP=$(awk ' {print $1} ' /tmp/droplet.txt)
+dropletId=$(awk ' {print $2} ' /tmp/droplet.txt)
 
 rm /tmp/droplet.txt
 
 echo "Droplet ready with ip: $IP and id:$dropletId"
 
 echo "Waiting for droplet to be ready for ssh connections"
-until ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE root@$IP true >/dev/null 2>&1; do 
+until ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE root@"$IP" true >/dev/null 2>&1; do
 	: 
 done
 
 echo "Uploading files"
-scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE $TAR_FILE docker-compose.yml $ENV_FILE $SETUP_SCRIPT root@$IP:~/ 
+scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE $TAR_FILE docker-compose.yml $ENV_FILE $SETUP_SCRIPT root@"$IP":~/
 
-ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE root@$IP "echo 'Installing docker and docker-compose' ; \
+ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE root@"$IP" "echo 'Installing docker and docker-compose' ; \
 	apt install -y docker.io ; apt install -y docker-compose; \
 	echo 'Configuring .env'; \
 	sh ./$SETUP_SCRIPT; \
