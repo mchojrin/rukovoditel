@@ -13,7 +13,7 @@ echo "Building production image"
 docker build . -t $TARGET_IMAGE --target=prod
 
 echo "Packaging the image for deployment"
-docker save -o ruko_prod.tar ruko_prod
+docker save -o $TAR_FILE $TARGET_IMAGE
 echo "File $TAR_FILE ready for deployment"
 
 echo "Spinning up a new droplet and waiting for it to be ready..."
