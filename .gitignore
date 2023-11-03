@@ -1,3 +1,4 @@
 .idea/*
 .env
 /ruko_*.tar
+/app/config/database.php
