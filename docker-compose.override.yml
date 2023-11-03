@@ -4,10 +4,13 @@ services:
     image: 'ruko_dev'
     build:
       target: dev
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     ports:
       - '8888:80'
     volumes:
-      - './app/:/var/www/html/:rw'
+      - './app/:/var/www/html/'
       - './xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
     extra_hosts:
       - host.docker.internal:host-gateway

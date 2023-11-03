@@ -13,9 +13,6 @@ services:
     build:
       context: '.'
       target: prod
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
     ports:
       - '80:80'
     restart: always
