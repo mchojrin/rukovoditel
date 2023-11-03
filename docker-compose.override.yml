@@ -1,17 +1,8 @@
 version: '3.8'
 services:
-  mysql:
-    image: 'mysql:5.7.42-debian'
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=ruko
-      - MYSQL_USER=ruko
-      - MYSQL_PASSWORD=ruko
-    restart: always
   webserver:
     image: 'ruko_dev'
     build:
-      context: '.'
       target: dev
     ports:
       - '8888:80'
