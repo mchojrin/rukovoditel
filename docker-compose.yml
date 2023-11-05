@@ -11,12 +11,9 @@ services:
     volumes:
       - 'db-data:/var/lib/mysql'
   webserver:
-    image: 'ruko_prod'
+    user: 'www-data'
     build:
       context: '.'
-      target: prod
-    ports:
-      - '80:80'
     restart: always
 volumes:
-  db-data:
+  db-data: {}

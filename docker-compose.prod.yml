@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  webserver:
+    image: 'ruko_prod'
+    build:
+      target: prod
+    ports:
+      - '80:80'
+    volumes:
+      - ruko_bkp:/var/www/html/backups
+      - ruko_config:/var/www/html/config
+      - ruko_log:/var/www/html/log
+      - ruko_uploads:/var/www/html/uploads
+
+volumes:
+  ruko_bkp: {}
+  ruko_config: {}
+  ruko_log: {}
+  ruko_uploads: {}
