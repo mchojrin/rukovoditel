@@ -1,4 +1,5 @@
 .idea/*
 .env
-/ruko_*.tar
-/app/config/database.php
+ruko_*.tar
+app/config/database.php
+app/uploads/*
