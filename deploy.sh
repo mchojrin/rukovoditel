@@ -31,8 +31,6 @@ doctl compute droplet get $DROPLET --template="{{.PublicIPv4}} {{.ID}}" > /tmp/d
 IP=$(awk ' {print $1} ' /tmp/droplet.txt)
 dropletId=$(awk ' {print $2} ' /tmp/droplet.txt)
 
-rm /tmp/droplet.txt
-
 echo "Droplet ready with ip: $IP and id:$dropletId"
 
 echo "Waiting for droplet to be ready for ssh connections"
@@ -41,14 +39,14 @@ until ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID
 done
 
 echo "Uploading files"
-scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE $TAR_FILE docker-compose.yml root@"$IP":~/
+scp -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE $TAR_FILE docker-compose.yml docker-compose.prod.yml root@"$IP":~/
 
 ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE root@"$IP" "echo 'Installing docker and docker-compose' ; \
 	apt install -y docker.io ; apt install -y docker-compose; \
 	echo 'Installing image $TARGET_IMAGE'; \
 	docker load -i $TAR_FILE; \
 	echo 'Bringing services up'; \
-	docker-compose up -d; \
+	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d ; \
 	"
 
 echo "Everything ready. Open up a browser at http://$IP to finish installation"
