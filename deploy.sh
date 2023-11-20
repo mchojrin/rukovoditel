@@ -45,6 +45,7 @@ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE 
 	apt install -y docker.io ; apt install -y docker-compose; \
 	echo 'Installing image $TARGET_IMAGE'; \
 	docker load -i $TAR_FILE; \
+	ln -s docker-compose.prod.yml docker-compose.override.yml; \
 	echo 'Bringing services up'; \
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d ; \
 	"
