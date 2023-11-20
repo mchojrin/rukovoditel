@@ -47,7 +47,7 @@ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE 
 	docker load -i $TAR_FILE; \
 	ln -s docker-compose.prod.yml docker-compose.override.yml; \
 	echo 'Bringing services up'; \
-	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d ; \
+	docker-compose up -d ; \
 	"
 
 echo "Everything ready. Open up a browser at http://$IP to finish installation"
