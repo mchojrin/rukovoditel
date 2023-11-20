@@ -52,4 +52,4 @@ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -i $ID_FILE 
 
 echo "Everything ready. Open up a browser at http://$IP to finish installation"
 echo "When done, delete the droplet using the command:"
-echo "  doctl compute droplet delete $dropletId -f"
+echo "  ./destroy.sh"
